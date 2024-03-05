@@ -1,12 +1,14 @@
 import { CallbackFunction } from '../utils/types';
 import {ApiResponse} from '../utils/interfaces';
 import {Options} from '../utils/types';
+import {URLOptions} from '../utils/types';
+import {ApiOptions} from '../utils/types';
 
 class Loader {
     baseLink: string;
-    options: Options;
+    options: ApiOptions;
 
-    constructor(baseLink: string, options: Options) {
+    constructor(baseLink: string, options: ApiOptions) {
         this.baseLink = baseLink;
         this.options = options;
     }
@@ -15,6 +17,7 @@ class Loader {
             console.error('No callback for GET response');
         }
     ) {
+        
         this.load('GET', endpoint, callback, options);
     }
 
@@ -29,10 +32,11 @@ class Loader {
     }
 
     makeUrl(options:Options, endpoint:string) {
-        const urlOptions:object = { ...this.options, ...options };
+        
+        const urlOptions:URLOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
-        Object.keys(urlOptions).forEach(([key, value]): void => {
+        Object.entries(urlOptions).forEach(([key, value]): void => {
             url += `${key}=${value ?? ''}&`;
           });
 
