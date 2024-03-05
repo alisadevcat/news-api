@@ -3,7 +3,6 @@ body {
     background: #17181c;
     font-family: sans-serif;
 }
-
 header {
     padding: 10px 30px;
 }
@@ -13,8 +12,12 @@ header h1 {
     font-weight: 800;
 }
 
-footer {
-    height: 100px;
+.content {
+    min-height: calc(100vh - 170px);
+  }
+
+.footer {
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,3 +36,63 @@ footer .copyright a:hover {
 footer .copyright:before {
     content: '©';
 }
+.footer-content{
+    margin-top: 1.5rem;
+}
+.copyright-div{
+    padding-top: 0.5rem;
+}
+
+.additional-info{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    color:white;
+    gap: 20px;
+}
+.course-link{
+    color: #fff;
+}
+.course-link:hover{
+    color: #555;
+}
+.icon{
+    width: 148px;
+    height: 55px;
+    background-color: #fff;
+}
+.additional-info__school{
+    font-size: 1rem;
+}
+.container{
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+/* @media only screen and (max-width: 1400px) {
+    .container{
+        max-width: 1400px;
+    }
+} */
+
+/* @media only screen and (min-width: 1200px) {
+    .container{
+        max-width: 1200px;
+    
+    }
+} 
+
+@media only screen and (min-width: 900px) {
+    .container{
+        max-width: 900px;
+    
+    }
+} */
+
+@media only screen and (max-width: 320px) {
+    .container{
+        max-width: 300px;
+    }
+} 
