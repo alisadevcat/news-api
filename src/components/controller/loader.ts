@@ -1,16 +1,17 @@
 import { CallbackFunction } from '../utils/types';
 import {ApiResponse} from '../utils/interfaces';
+import {Options} from '../utils/types';
 
 class Loader {
     baseLink: string;
-    options: object;
+    options: Options;
 
-    constructor(baseLink: string, options: object) {
+    constructor(baseLink: string, options: Options) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
-    getResp({endpoint, options = {}} : { endpoint: string; options?: object}, callback: CallbackFunction<ApiResponse> = () => {
+    getResp({endpoint, options = {}} : { endpoint: string; options?: Options}, callback: CallbackFunction<ApiResponse> = () => {
             console.error('No callback for GET response');
         }
     ) {
@@ -27,7 +28,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options:object, endpoint:string) {
+    makeUrl(options:Options, endpoint:string) {
         const urlOptions:object = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -38,7 +39,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: CallbackFunction<ApiResponse>, options = {}) {
+    load(method: string, endpoint: string, callback: CallbackFunction<ApiResponse>, options:Options = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
