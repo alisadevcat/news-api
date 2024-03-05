@@ -1,7 +1,9 @@
-export default interface ApiArticlesResponse{
-    status: string;
-    totalResults: number;
-    articles: Article[]
+interface StatusResponse{
+    status: string;  
+}
+export interface ApiArticlesResponse extends StatusResponse{
+    totalResults?: number;
+    articles?: Article[]
 }
 export interface Src{
     id:  null;
@@ -17,9 +19,8 @@ export interface Article{
     publishedAt: string;
     content: string;
 }
-export interface Sources{
-    status?: string;
-    sources: Source[];
+export interface ApiSourcesResponse extends StatusResponse{
+    sources?: Source[];
 }
 
 export interface Source{
@@ -31,3 +32,19 @@ export interface Source{
         language: string;
         country: string;
 }
+
+export interface ApiResponse extends ApiArticlesResponse,ApiSourcesResponse {}
+
+
+// load<T>(
+//     method: string,
+//     endpoint: Endpoints,
+//     callback: CallbackFunction<T>,
+//     options: UrlOptions,
+//   ) {
+//     fetch(this.makeUrl(options, endpoint), { method })
+//       .then(this.errorHandler)
+//       .then((res) => res.json())
+//       .then((data) => callback(data))
+//       .catch((err) => console.error(err));
+//   }

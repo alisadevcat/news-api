@@ -1,0 +1,1 @@
+//getEnv(input: string) => { const res = process.env[input] все нужные проверки }

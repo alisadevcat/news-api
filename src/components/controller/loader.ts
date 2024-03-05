@@ -1,22 +1,23 @@
+import { CallbackFunction } from '../utils/types';
+import {ApiResponse} from '../utils/interfaces';
+
 class Loader {
     baseLink: string;
-    options: {};
+    options: object;
 
-    constructor(baseLink: string, options: {}) {
+    constructor(baseLink: string, options: object) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
-    getResp(
-        {endpoint, options = {}} : { endpoint: string; options?: {}},
-        callback = () => {
+    getResp({endpoint, options = {}} : { endpoint: string; options?: object}, callback: CallbackFunction<ApiResponse> = () => {
             console.error('No callback for GET response');
         }
     ) {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res) {
+    errorHandler(res: Response) {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -26,8 +27,8 @@ class Loader {
         return res;
     }
 
-    makeUrl(options:{}, endpoint:string) {
-        const urlOptions = { ...this.options, ...options };
+    makeUrl(options:object, endpoint:string) {
+        const urlOptions:object = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
@@ -37,7 +38,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback:()=>void, options = {}) {
+    load(method: string, endpoint: string, callback, options = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
